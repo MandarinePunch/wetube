@@ -1,4 +1,35 @@
-export const join = (req, res) => res.send("Join");
+import User from "../models/User";
+
+export const getJoin = (req, res) => {
+  return res.render("join", { pageTitle: "Join" });
+};
+export const postJoin = async (req, res) => {
+  console.log(req.body);
+  const { name, username, email, password, password2, location } = req.body;
+  const pageTitle = "Join";
+  if (password !== password2) {
+    return res.status(400).render("join", {
+      pageTitle,
+      errorMessage: "Password conrirmation does mot match.",
+    });
+  }
+  const exists = await User.exists({ $or: [{ username }, { email }] }); //$or는 조건이 하나라도 참이면 해당 데이터를 찾아옴
+  if (exists) {
+    return res.status(400).render("join", {
+      //'400'은 bad request를 의미
+      pageTitle,
+      errorMessage: "This username/email is already taken.",
+    });
+  }
+  await User.create({
+    name,
+    username,
+    email,
+    password,
+    location,
+  });
+  return res.redirect("/login");
+};
 export const edit = (req, res) => res.send("Edit User");
 export const remove = (req, res) => res.send("Remove User");
 export const login = (req, res) => res.send("Login");
