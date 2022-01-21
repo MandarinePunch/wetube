@@ -11,7 +11,7 @@ export const postJoin = async (req, res) => {
   if (password !== password2) {
     return res.status(400).render("join", {
       pageTitle,
-      errorMessage: "Password conrirmation does mot match.",
+      errorMessage: "Password confirmation does not match.",
     });
   }
   const exists = await User.exists({ $or: [{ username }, { email }] }); //$or는 조건이 하나라도 참이면 해당 데이터를 찾아옴
