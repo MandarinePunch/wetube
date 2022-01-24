@@ -47,7 +47,7 @@ export const postLogin = async (req, res) => {
   const pageTitle = "Login";
   const user = await User.findOne({
     username,
-    socialOnly: FontFaceSetLoadEvent,
+    socialOnly: false,
   });
   if (!user) {
     return res.status(400).render("login", {
@@ -137,10 +137,32 @@ export const finishGithubLogin = async (req, res) => {
     return res.redirect("/login");
   }
 };
-
-export const edit = (req, res) => res.send("Edit User");
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
+};
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+export const postEdit = async (req, res) => {
+  const pageTitle = "Edit Profile";
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { name, email, username, location },
+  } = req;
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      email,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  return res.redirect("/users/edit");
 };
 export const see = (req, res) => res.send("See");
