@@ -7,6 +7,7 @@ export const home = async (req, res) => {
     .populate("owner");
   return res.render("home", { pageTitle: "Home", videos }); //pug의 home파일을 받음
 };
+
 export const watch = async (req, res) => {
   const { id } = req.params; // const id = req.params.id와 같음
   const video = await Video.findById(id).populate("owner"); //populate를 통해 video.owner안에 현재 User의 정보를 이주시킴
@@ -81,6 +82,7 @@ export const postUpLoad = async (req, res) => {
     });
   }
 };
+
 export const deleteVideo = async (req, res) => {
   const { id } = req.params;
   const {
@@ -99,6 +101,7 @@ export const deleteVideo = async (req, res) => {
   user.save();
   return res.redirect("/");
 };
+
 export const search = async (req, res) => {
   const { keyword } = req.query;
   let videos = [];
@@ -110,4 +113,15 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views += 1;
+  await video.save();
+  return res.sendStatus(200);
 };

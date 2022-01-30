@@ -134,16 +134,24 @@ const handleKeydown = (event) => {
   }
 };
 
+const handleEnded = (event) => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("click", handleVideoClick);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+videoContainer.addEventListener("fullscreenchange", handleFullScreenChange);
+fullScreenBtn.addEventListener("click", handleFullScreen);
 timeline.addEventListener("input", handleTimelineChange);
 timeline.addEventListener("change", handleTimelineSet);
-fullScreenBtn.addEventListener("click", handleFullScreen);
-videoContainer.addEventListener("fullscreenchange", handleFullScreenChange);
-video.addEventListener("click", handleVideoClick);
 document.addEventListener("keydown", handleKeydown);
