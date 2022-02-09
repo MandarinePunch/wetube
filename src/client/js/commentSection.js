@@ -5,7 +5,7 @@ const deleteBtn = document.querySelectorAll("#deleteBtn");
 const handleDelete = async (event) => {
   const comment = event.target.parentNode;
   const commentId = comment.dataset.id;
-  const response = await fetch(`/api/videos/${commentId}/delete-comment`, {
+  const response = await fetch(`/api/comments/${commentId}/delete`, {
     method: "DELETE",
   });
   if (response.status === 200) {
