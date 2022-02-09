@@ -11,6 +11,7 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const textarea = document.getElementById("textarea");
 
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -128,8 +129,8 @@ const handleVideoClick = () => {
 };
 
 const handleKeydown = (event) => {
-  let { keyCode } = event;
-  if (keyCode === 32) {
+  let { keyCode, target } = event;
+  if (target !== textarea && keyCode === 32) {
     togglePlay();
   }
 };
