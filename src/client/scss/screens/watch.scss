@@ -4,32 +4,117 @@
   flex-direction: column;
   .video__title {
     font-size: 26px;
+    margin-bottom: 15px;
+  }
+  .video__infobox {
+    font-size: 13px;
     margin-bottom: 5px;
   }
-  .video__createdAt {
-    font-size: 12px;
+  details {
+    margin-bottom: 10px;
+    summary {
+      font-weight: 600;
+      background: rgb(41, 41, 41);
+      color: #fff;
+      margin: 5px 0 10px;
+      padding: 5px 10px;
+      line-height: 25px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 2px rgb(73, 73, 73);
+      cursor: pointer;
+    }
+    .video__description {
+      background: rgb(41, 41, 41);
+      color: #fff;
+      margin: 5px 0 10px;
+      padding: 5px 10px;
+      line-height: 25px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 2px rgb(73, 73, 73);
+    }
+  }
+  .video__btnbox {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: end;
+    .video__edit,
+    .video__delete {
+      cursor: pointer;
+      border: none;
+      margin-left: 10px;
+      background-color: rgb(32, 84, 228);
+      border-radius: 10px;
+      text-align: center;
+      color: white;
+      font-size: 15px;
+      width: 100px;
+      height: 40px;
+      &:hover {
+        background-color: rgb(32, 228, 130);
+        color: black;
+        transition: 0.3s;
+      }
+    }
   }
   .video__owner {
     margin-bottom: 5px;
     font-size: 14px;
     a {
       color: cornflowerblue;
-      text-decoration: underline;
+      font-weight: 600;
     }
   }
 }
+
+.video__add-comments {
+  .video__comment-form {
+    border: none;
+    display: flex;
+    justify-content: center;
+    height: 30px;
+    textarea {
+      font-size: large;
+      color: white;
+      background-color: $bg;
+      width: 500px;
+      border: none;
+      border-bottom: solid 1px rgb(73, 73, 73);
+      outline: none;
+      &:focus {
+        transition: 0.3s;
+        border-bottom: solid 1px rgb(32, 84, 228);
+      }
+    }
+    button {
+      background-color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      i {
+        font-size: x-large;
+      }
+    }
+  }
+}
+
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 400px;
   width: 100%;
   margin: 0 auto;
-  margin-top: 20px;
   .video__comment {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
     border-radius: 9999px;
     background-color: white;
     color: black;
     margin-bottom: 10px;
+    i {
+      font-size: large;
+      margin-right: 3px;
+    }
   }
 }

@@ -20,10 +20,11 @@ header
                         if !loggedInUser.avatarUrl
                             span.header__non-avatar 😆
                         else 
-                            if loggedInUser.avatarUrl.includes("github")
+                            if isHeroku
                                 img.header__avatar(src=loggedInUser.avatarUrl crossorigin)
-                            else 
-                                img.header__avatar(src=loggedInUser.avatarUrl crossorigin)
+                            else
+                                img.header__avatar(src="/" + loggedInUser.avatarUrl crossorigin)
+
             else
                 li 
                     a(href="/login") Login
