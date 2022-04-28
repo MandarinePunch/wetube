@@ -33,34 +33,34 @@ const handleDownload = async () => {
 
   await ffmpeg.run("-i", files.input, "-r", "60", files.output); //input webm을 초당 60프레임의files.output 바꿈
 
-  // await ffmpeg.run(
-  //   "-i",
-  //   files.input,
-  //   "-ss",
-  //   "00:00:01",
-  //   "-frames:v",
-  //   "1",
-  //   files.thumbnail
-  // ); //영상 썸네일 추출
+  await ffmpeg.run(
+    "-i",
+    files.input,
+    "-ss",
+    "00:00:01",
+    "-frames:v",
+    "1",
+    files.thumbnail
+  ); //영상 썸네일 추출
 
   const mp4File = ffmpeg.FS("readFile", files.output);
-  // const thumbFile = ffmpeg.FS("readFile", files.thumbnail);
+  const thumbFile = ffmpeg.FS("readFile", files.thumbnail);
 
   const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
-  // const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
+  const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
 
   const mp4Url = URL.createObjectURL(mp4Blob);
-  // const thumbUrl = URL.createObjectURL(thumbBlob);
+  const thumbUrl = URL.createObjectURL(thumbBlob);
 
   downloadFile(mp4Url, "MyRecording.mp4");
-  // downloadFile(thumbUrl, "MyThumbnail.jpg");
+  downloadFile(thumbUrl, "MyThumbnail.jpg");
 
   ffmpeg.FS("unlink", files.input);
   ffmpeg.FS("unlink", files.output);
-  // ffmpeg.FS("unlink", files.thumbnail);
+  ffmpeg.FS("unlink", files.thumbnail);
 
   URL.revokeObjectURL(mp4Url);
-  // URL.revokeObjectURL(thumbUrl);
+  URL.revokeObjectURL(thumbUrl);
   URL.revokeObjectURL(videoFile);
 
   actionBtn.disabled = false;
@@ -91,12 +91,11 @@ const handleStart = () => {
 
 const init = async () => {
   stream = await navigator.mediaDevices.getUserMedia({
-    audio: true,
-    // video: {
-    //   width: 1024,
-    //   height: 576,
-    // },
-    video: false,
+    audio: false,
+    video: {
+      width: 1024,
+      height: 576,
+    },
   });
   video.srcObject = stream;
   video.play();

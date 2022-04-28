@@ -4,14 +4,26 @@
   flex-direction: column;
   .video__title {
     font-size: 26px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+  }
+  .video__hashtags {
+    color: rgb(58, 160, 255);
+    margin-bottom: 5px;
+  }
+  .video__owner {
+    margin-bottom: 5px;
+    font-size: 14px;
+    a {
+      color: cornflowerblue;
+      font-weight: 600;
+    }
   }
   .video__infobox {
     font-size: 13px;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
   }
   details {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     summary {
       font-weight: 600;
       background: rgb(41, 41, 41);
@@ -50,18 +62,10 @@
       width: 100px;
       height: 40px;
       &:hover {
-        background-color: rgb(32, 228, 130);
+        background-color: white;
         color: black;
         transition: 0.3s;
       }
-    }
-  }
-  .video__owner {
-    margin-bottom: 5px;
-    font-size: 14px;
-    a {
-      color: cornflowerblue;
-      font-weight: 600;
     }
   }
 }
@@ -73,6 +77,7 @@
     justify-content: center;
     height: 30px;
     textarea {
+      margin-right: 5px;
       font-size: large;
       color: white;
       background-color: $bg;
